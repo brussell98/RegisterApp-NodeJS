@@ -39,8 +39,7 @@
 		"preserveConstEnums": true
 	},
 	"include": [
-		"src/**/*.ts",
-		"src/**/*.js"
+		"src/**/*"
 	],
 	"exclude": [
 		"node_modules",

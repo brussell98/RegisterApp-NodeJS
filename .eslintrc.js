@@ -1,8 +1,7 @@
 module.exports = {
 	parserOptions: {
 		ecmaVersion: 2019,
-		project: './tsconfig.json',
-		extraFileExtensions: ['.ejs']
+		project: './tsconfig.json'
 	},
 	env: {
 		es6: true,

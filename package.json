@@ -24,7 +24,7 @@
 		"start": "node dist/server.js",
 		"clean": "rimraf dist",
 		"build-ts": "tsc",
-		"lint": "eslint **/* && ejslint ./views/*",
+		"lint": "eslint ./src/**/*.ts && ejslint ./views/*",
 		"test": "jest --forceExit --coverage --verbose",
 		"postinstall": "yarn rebuild"
 	},
