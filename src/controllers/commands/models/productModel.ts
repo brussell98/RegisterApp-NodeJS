@@ -1,7 +1,7 @@
-import Sequelize from "sequelize";
-import { DatabaseConnection } from "./databaseConnection";
-import { ProductFieldName, DatabaseTableName } from "./constants/databaseNames";
-import { Model, DataTypes, InitOptions, ModelAttributes, ModelAttributeColumnOptions } from "sequelize";
+import Sequelize from 'sequelize';
+import { DatabaseConnection } from './databaseConnection';
+import { ProductFieldName, DatabaseTableName } from './constants/databaseNames';
+import { Model, DataTypes, InitOptions, ModelAttributes, ModelAttributeColumnOptions } from 'sequelize';
 
 export class ProductModel extends Model {
 	public count!: number;
@@ -47,10 +47,9 @@ export const queryById = async (
 	id: string,
 	queryTransaction?: Sequelize.Transaction
 ): Promise<ProductModel | null> => {
-
 	return ProductModel.findOne(<Sequelize.FindOptions>{
 		transaction: queryTransaction,
-		where: <Sequelize.WhereAttributeHash>{ id: id }
+		where: <Sequelize.WhereAttributeHash>{ id }
 	});
 };
 
@@ -58,15 +57,14 @@ export const queryByLookupCode = async (
 	lookupCode: string,
 	queryTransaction?: Sequelize.Transaction
 ): Promise<ProductModel | null> => {
-
 	return ProductModel.findOne(<Sequelize.FindOptions>{
 		transaction: queryTransaction,
-		where: <Sequelize.WhereAttributeHash>{ lookupCode: lookupCode }
+		where: <Sequelize.WhereAttributeHash>{ lookupCode }
 	});
 };
 
 export const queryAll = async (): Promise<ProductModel[]> => {
 	return ProductModel.findAll(<Sequelize.FindOptions>{
-		order: [ [ ProductFieldName.CREATED_ON, "ASC" ] ]
+		order: [[ProductFieldName.CREATED_ON, 'ASC']]
 	});
 };

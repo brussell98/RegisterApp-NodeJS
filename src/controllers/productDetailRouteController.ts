@@ -1,28 +1,27 @@
-import { Request, Response } from "express";
-import { Resources, ResourceKey } from "../resourceLookup";
-import * as ProductQuery from "./commands/products/productQuery";
-import { ViewNameLookup, ParameterLookup, RouteLookup } from "./lookups/routingLookup";
-import * as ProductCreateCommand from "./commands/products/productCreateCommand";
-import * as ProductDeleteCommand from "./commands/products/productDeleteCommand";
-import * as ProductUpdateCommand from "./commands/products/productUpdateCommand";
-import { CommandResponse, Product, ProductDetailPageResponse, ApiResponse, ProductSaveResponse, ProductSaveRequest } from "./typeDefinitions";
+import { Request, Response } from 'express';
+import { Resources, ResourceKey } from '../resourceLookup';
+import * as ProductQuery from './commands/products/productQuery';
+import { ViewNameLookup, ParameterLookup, RouteLookup } from './lookups/routingLookup';
+import * as ProductCreateCommand from './commands/products/productCreateCommand';
+import * as ProductDeleteCommand from './commands/products/productDeleteCommand';
+import * as ProductUpdateCommand from './commands/products/productUpdateCommand';
+import { CommandResponse, Product, ProductDetailPageResponse, ApiResponse, ProductSaveResponse, ProductSaveRequest } from './typeDefinitions';
 
 const processStartProductDetailError = (res: Response, error: any): void => {
-	let errorMessage: (string | undefined) = "";
-	if ((error.status != null) && (error.status >= 500)) {
+	let errorMessage: (string | undefined) = '';
+	if (error.status != null && error.status >= 500)
 		errorMessage = error.message;
-	}
 
-	res.status((error.status || 500))
+	res.status(error.status || 500)
 		.render(
 			ViewNameLookup.ProductDetail,
 			<ProductDetailPageResponse>{
 				product: <Product>{
-					id: "",
+					id: '',
 					count: 0,
-					lookupCode: ""
+					lookupCode: ''
 				},
-				errorMessage: errorMessage
+				errorMessage
 			});
 };
 
@@ -44,7 +43,6 @@ const saveProduct = async (
 	res: Response,
 	performSave: (productSaveRequest: ProductSaveRequest) => Promise<CommandResponse<Product>>
 ): Promise<void> => {
-
 	return performSave(req.body)
 		.then((createProductCommandResponse: CommandResponse<Product>): void => {
 			res.status(createProductCommandResponse.status)
@@ -54,8 +52,7 @@ const saveProduct = async (
 		}).catch((error: any): void => {
 			res.status(error.status || 500)
 				.send(<ApiResponse>{
-					errorMessage: (error.message
-						|| Resources.getString(ResourceKey.PRODUCT_UNABLE_TO_SAVE))
+					errorMessage: error.message || Resources.getString(ResourceKey.PRODUCT_UNABLE_TO_SAVE)
 				});
 		});
 };
@@ -78,8 +75,7 @@ export const deleteProduct = async (req: Request, res: Response): Promise<void> 
 		}).catch((error: any): void => {
 			res.status(error.status || 500)
 				.send(<ApiResponse>{
-					errorMessage: (error.message
-						|| Resources.getString(ResourceKey.PRODUCT_UNABLE_TO_DELETE))
+					errorMessage: error.message || Resources.getString(ResourceKey.PRODUCT_UNABLE_TO_DELETE)
 				});
 		});
 };

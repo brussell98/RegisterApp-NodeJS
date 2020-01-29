@@ -1,6 +1,6 @@
-import * as Helper from "../../helpers/helper";
-import { Product } from "../../../typeDefinitions";
-import { ProductModel } from "../../models/productModel";
+import * as Helper from '../../helpers/helper';
+import { Product } from '../../../typeDefinitions';
+import { ProductModel } from '../../models/productModel';
 
 export const mapProductData = (queriedProduct: ProductModel): Product => {
 	return <Product>{

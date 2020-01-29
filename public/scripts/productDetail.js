@@ -1,13 +1,13 @@
 let hideProductSavedAlertTimer = undefined;
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
 	const productLookupCodeElement = getProductLookupCodeElement();
 
-	getProductCountElement().addEventListener("keypress", productCountKeypress);
-	productLookupCodeElement.addEventListener("keypress", productLookupCodeKeypress);
-	
-	getSaveActionElement().addEventListener("click", saveActionClick);
-	getDeleteActionElement().addEventListener("click", deleteActionClick);
+	getProductCountElement().addEventListener('keypress', productCountKeypress);
+	productLookupCodeElement.addEventListener('keypress', productLookupCodeKeypress);
+
+	getSaveActionElement().addEventListener('click', saveActionClick);
+	getDeleteActionElement().addEventListener('click', deleteActionClick);
 
 	if (!productLookupCodeElement.disabled) {
 		productLookupCodeElement.focus();
@@ -16,9 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function productLookupCodeKeypress(event) {
-	if (event.which !== 13) { // Enter key
+	if (event.which !== 13) // Enter key
 		return;
-	}
 
 	const productCountElement = getProductCountElement();
 	productCountElement.focus();
@@ -26,73 +25,68 @@ function productLookupCodeKeypress(event) {
 }
 
 function productCountKeypress(event) {
-	if (event.which !== 13) { // Enter key
+	if (event.which !== 13) // Enter key
 		return;
-	}
 
 	saveActionClick();
 }
 
 // Save
 function saveActionClick(event) {
-	if (!validateSave()) {
+	if (!validateSave())
 		return;
-	}
 
 	const saveActionElement = event.target;
 	saveActionElement.disabled = true;
 
 	const productId = getProductId();
-	const productIdIsDefined = ((productId != null) && (productId.trim() !== ""));
-	const saveActionUrl = ("/api/productDetail/"
-		+ (productIdIsDefined ? productId : ""));
+	const productIdIsDefined = productId != null && productId.trim() !== '';
+	const saveActionUrl = ('/api/productDetail/' + (productIdIsDefined ? productId : ''));
 	const saveProductRequest = {
 		id: productId,
 		count: getProductCount(),
 		lookupCode: getProductLookupCode()
 	};
 
-	if (productIdIsDefined) {
-		ajaxPut(saveActionUrl, saveProductRequest, (callbackResponse) => {
+	if (productIdIsDefined)
+		ajaxPut(saveActionUrl, saveProductRequest, callbackResponse => {
 			saveActionElement.disabled = false;
 
 			if (isSuccessResponse(callbackResponse)) {
 				displayProductSavedAlertModal();
 			}
 		});
-	} else {
-		ajaxPost(saveActionUrl, saveProductRequest, (callbackResponse) => {
+	else
+		ajaxPost(saveActionUrl, saveProductRequest, callbackResponse => {
 			saveActionElement.disabled = false;
 
 			if (isSuccessResponse(callbackResponse)) {
 				displayProductSavedAlertModal();
 
-				if ((callbackResponse.data != null)
-					&& (callbackResponse.data.product != null)
-					&& (callbackResponse.data.product.id.trim() !== "")) {
-
-					document.getElementById("deleteActionContainer").classList.remove("hidden");
+				if (callbackResponse.data != null
+					&& callbackResponse.data.product != null
+					&& callbackResponse.data.product.id.trim() !== '') {
+					document.getElementById('deleteActionContainer').classList.remove('hidden');
 
 					setProductId(callbackResponse.data.product.id.trim());
 				}
 			}
 		});
-	}
 };
 
 function validateSave() {
 	const lookupCode = getProductLookupCode();
-	if ((lookupCode == null) || (lookupCode.trim() === "")) {
-		displayError("Please provide a valid product lookup code.");
+	if (lookupCode == null || lookupCode.trim() === '') {
+		displayError('Please provide a valid product lookup code.');
 		return false;
 	}
 
 	const count = getProductCount();
-	if ((count == null) || isNaN(count)) {
-		displayError("Please provide a valid product count.");
+	if (count == null || isNaN(count)) {
+		displayError('Please provide a valid product count.');
 		return false;
 	} else if (count < 0) {
-		displayError("Product count may not be negative.");
+		displayError('Product count may not be negative.');
 		return false;
 	}
 
@@ -100,45 +94,42 @@ function validateSave() {
 }
 
 function displayProductSavedAlertModal() {
-	if (hideProductSavedAlertTimer) {
+	if (hideProductSavedAlertTimer)
 		clearTimeout(hideProductSavedAlertTimer);
-	}
 
 	const savedAlertModalElement = getSavedAlertModalElement();
-	savedAlertModalElement.style.display = "none";
-	savedAlertModalElement.style.display = "block";
+	savedAlertModalElement.style.display = 'none';
+	savedAlertModalElement.style.display = 'block';
 
 	hideProductSavedAlertTimer = setTimeout(hideProductSavedAlertModal, 1200);
 }
 
 function hideProductSavedAlertModal() {
-	if (hideProductSavedAlertTimer) {
+	if (hideProductSavedAlertTimer)
 		clearTimeout(hideProductSavedAlertTimer);
-	}
 
-	getSavedAlertModalElement().style.display = "none";
+	getSavedAlertModalElement().style.display = 'none';
 }
 // End save
 
 // Delete
 function deleteActionClick(event) {
 	const deleteActionElement = event.target;
-	const deleteActionUrl = ("/api/productDetail/" + getProductId());
+	const deleteActionUrl = '/api/productDetail/' + getProductId();
 
 	deleteActionElement.disabled = true;
 
-	ajaxDelete(deleteActionUrl, (callbackResponse) => {
+	ajaxDelete(deleteActionUrl, callbackResponse => {
 		deleteActionElement.disabled = false;
 
 		if (isSuccessResponse(callbackResponse)) {
-			if ((callbackResponse.data != null)
-				&& (callbackResponse.data.redirectUrl != null)
-				&& (callbackResponse.data.redirectUrl !== "")) {
-				
+			if (callbackResponse.data != null
+				&& callbackResponse.data.redirectUrl != null
+				&& callbackResponse.data.redirectUrl !== '') {
+
 				window.location.replace(callbackResponse.data.redirectUrl);
-			} else {
-				window.location.replace("/");
-			}
+			} else
+				window.location.replace('/');
 		}
 	});
 };
@@ -146,15 +137,15 @@ function deleteActionClick(event) {
 
 // Getters and setters
 function getSaveActionElement() {
-	return document.getElementById("saveButton");
+	return document.getElementById('saveButton');
 }
 
 function getSavedAlertModalElement() {
-	return document.getElementById("productSavedAlertModal");
+	return document.getElementById('productSavedAlertModal');
 }
 
 function getDeleteActionElement() {
-	return document.getElementById("deleteButton");
+	return document.getElementById('deleteButton');
 }
 
 function getProductId() {
@@ -164,20 +155,20 @@ function setProductId(productId) {
 	getProductIdElement().value = productId;
 }
 function getProductIdElement() {
-	return document.getElementById("productId");
+	return document.getElementById('productId');
 }
 
 function getProductLookupCode() {
 	return getProductLookupCodeElement().value;
 }
 function getProductLookupCodeElement() {
-	return document.getElementById("productLookupCode");
+	return document.getElementById('productLookupCode');
 }
 
 function getProductCount() {
 	return Number(getProductCountElement().value);
 }
 function getProductCountElement() {
-	return document.getElementById("productCount");
+	return document.getElementById('productCount');
 }
 // End getters and setters
