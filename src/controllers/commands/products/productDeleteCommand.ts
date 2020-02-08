@@ -20,9 +20,8 @@ export const execute = async (productId?: string): Promise<CommandResponse<void>
 				<string>productId,
 				deleteTransaction);
 		}).then((queriedProduct: (ProductModel | null)): Promise<void> => {
-			if (queriedProduct == null) {
+			if (queriedProduct == null)
 				return Promise.resolve();
-			}
 
 			return queriedProduct.destroy(
 				<Sequelize.InstanceDestroyOptions>{
@@ -33,9 +32,8 @@ export const execute = async (productId?: string): Promise<CommandResponse<void>
 
 			return <CommandResponse<void>>{ status: 204 };
 		}).catch((error: any): Promise<CommandResponse<void>> => {
-			if (deleteTransaction != null) {
+			if (deleteTransaction != null)
 				deleteTransaction.rollback();
-			}
 
 			return Promise.reject(<CommandResponse<void>>{
 				status: error.status || 500,

@@ -52,9 +52,8 @@ function saveActionClick(event) {
 		ajaxPut(saveActionUrl, saveProductRequest, callbackResponse => {
 			saveActionElement.disabled = false;
 
-			if (isSuccessResponse(callbackResponse)) {
+			if (isSuccessResponse(callbackResponse))
 				displayProductSavedAlertModal();
-			}
 		});
 	else
 		ajaxPost(saveActionUrl, saveProductRequest, callbackResponse => {
@@ -125,10 +124,10 @@ function deleteActionClick(event) {
 		if (isSuccessResponse(callbackResponse)) {
 			if (callbackResponse.data != null
 				&& callbackResponse.data.redirectUrl != null
-				&& callbackResponse.data.redirectUrl !== '') {
+				&& callbackResponse.data.redirectUrl !== '')
 
 				window.location.replace(callbackResponse.data.redirectUrl);
-			} else
+			else
 				window.location.replace('/');
 		}
 	});

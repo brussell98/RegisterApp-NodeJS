@@ -1,8 +1,0 @@
-package.json
-tsconfig.json
-package-lock.json
-yarn.lock
-README.md
-dist/
-public/
-views/

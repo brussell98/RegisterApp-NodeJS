@@ -45,12 +45,11 @@ export const execute = async (
 				<string>saveProductRequest.id,
 				updateTransaction);
 		}).then((queriedProduct: (ProductModel | null)): Promise<ProductModel> => {
-			if (queriedProduct == null) {
+			if (queriedProduct == null)
 				return Promise.reject(<CommandResponse<Product>>{
 					status: 404,
 					message: Resources.getString(ResourceKey.PRODUCT_NOT_FOUND)
 				});
-			}
 
 			return queriedProduct.update(
 				<Record<string, any>>{
@@ -68,9 +67,8 @@ export const execute = async (
 				data: ProductHelper.mapProductData(updatedProduct)
 			};
 		}).catch((error: any): Promise<CommandResponse<Product>> => {
-			if (updateTransaction != null) {
+			if (updateTransaction != null)
 				updateTransaction.rollback();
-			}
 
 			return Promise.reject(<CommandResponse<Product>>{
 				status: error.status || 500,

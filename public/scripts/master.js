@@ -106,11 +106,8 @@ function isErrorResponse(callbackResponse) {
 function clearError() {
 	const errorMessageContainerElement = getErrorMessageContainerElement();
 
-	if (errorMessageContainerElement == null
-		|| errorMessageContainerElement.classList.contains('hidden')) {
-
+	if (errorMessageContainerElement == null || errorMessageContainerElement.classList.contains('hidden'))
 		return;
-	}
 
 	errorMessageContainerElement.classList.add('hidden');
 

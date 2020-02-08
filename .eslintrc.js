@@ -13,71 +13,78 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended'
 	],
 	rules: {
-		'no-else-return': 1,
-		'no-redeclare': 2,
-		'no-useless-escape': 1,
-		'no-inner-declarations': 0,
-		'array-bracket-spacing': [1, 'never'],
-		'brace-style': 0,
-		'@typescript-eslint/brace-style': [2, '1tbs', { allowSingleLine: true }],
-		'no-trailing-spaces': 1,
-		'@typescript-eslint/space-before-function-paren': [1, {
+		'no-else-return': 'warn',
+		'no-redeclare': 'error',
+		'no-useless-escape': 'warn',
+		'no-inner-declarations': 'off',
+		'array-bracket-spacing': ['warn', 'never'],
+		'brace-style': 'off',
+		'@typescript-eslint/brace-style': ['warn', '1tbs', { allowSingleLine: true }],
+		curly: ['warn', 'multi'],
+		'no-trailing-spaces': 'warn',
+		'@typescript-eslint/space-before-function-paren': ['warn', {
 			anonymous: 'never',
 			named: 'never',
 			asyncArrow: 'always'
 		}],
-		'arrow-spacing': 1,
-		'@typescript-eslint/comma-spacing': [1, {
+		'arrow-spacing': 'warn',
+		'@typescript-eslint/comma-spacing': ['warn', {
 			'before': false,
 			'after': true
 		}],
-		'comma-dangle': 1,
-		'func-call-spacing': 0,
-		'@typescript-eslint/func-call-spacing': [2, 'never'],
-		'indent': 0,
-		'@typescript-eslint/indent': [2, 'tab', { SwitchCase: 1 }],
-		quotes: 0,
-		'@typescript-eslint/quotes': [2, 'single', { avoidEscape: true }],
-		'array-callback-return': 2,
-		eqeqeq: [1, 'always', { null: 'ignore' }],
-		'no-eval': 2,
-		'no-implied-eval': 2,
-		'no-return-assign': 2,
-		'no-unmodified-loop-condition': 0,
-		'no-empty': 2,
-		'@typescript-eslint/no-extra-semi': 2,
-		'no-invalid-regexp': 2,
-		'no-irregular-whitespace': 2,
-		'no-regex-spaces': 2,
-		'no-unreachable': 2,
-		'no-warning-comments': [1, {
+		'comma-dangle': 'warn',
+		'func-call-spacing': 'off',
+		'@typescript-eslint/func-call-spacing': ['error', 'never'],
+		indent: 'off',
+		'@typescript-eslint/indent': ['error', 'tab', { SwitchCase: 1 }],
+		'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
+		quotes: 'off',
+		'@typescript-eslint/quotes': ['error', 'single', {
+			avoidEscape: true,
+			allowTemplateLiterals: true
+		}],
+		'array-callback-return': 'error',
+		eqeqeq: ['warn', 'always', { null: 'ignore' }],
+		'no-eval': 'error',
+		'no-implied-eval': 'error',
+		'no-return-assign': 'error',
+		'no-unmodified-loop-condition': 'off',
+		'no-empty': 'error',
+		'@typescript-eslint/no-extra-semi': 'error',
+		'no-invalid-regexp': 'error',
+		'no-irregular-whitespace': 'error',
+		'no-regex-spaces': 'error',
+		'no-unreachable': 'error',
+		'no-warning-comments': ['warn', {
 			terms: ['todo', 'fixme'],
 			location: 'start'
 		}],
-		'valid-typeof': [2, { requireStringLiterals: false }],
-		'constructor-super': 2,
-		'no-const-assign': 2,
-		'no-dupe-class-members': 2,
-		'no-var': 2,
-		'prefer-const': [2, {
+		'valid-typeof': ['error', { requireStringLiterals: false }],
+		'constructor-super': 'error',
+		'no-const-assign': 'error',
+		'no-dupe-class-members': 'error',
+		'no-var': 'error',
+		'prefer-const': ['error', {
 			destructuring: 'any',
 			ignoreReadBeforeAssign: false
 		}],
-		'no-lonely-if': 2,
+		'no-lonely-if': 'error',
 		'no-extra-parens': ['warn', 'all', {
-			ignoreJSX: 'multi-line'
+			ignoreJSX: 'multi-line',
+			nestedBinaryExpressions: false
 		}],
-		'object-shorthand': [2, 'always', {
+		'object-shorthand': ['error', 'always', {
 			ignoreConstructors: false,
 			avoidQuotes: true
 		}],
-		'block-spacing': [2, 'always'],
-		'eol-last': [2, 'always'],
-		semi: 0,
-		'@typescript-eslint/semi': 2,
-		'@typescript-eslint/consistent-type-assertions': 0,
-		'@typescript-eslint/no-var-requires': 0,
-		'@typescript-eslint/explicit-function-return-type': 0,
-		'@typescript-eslint/no-explicit-any': 0
+		'block-spacing': ['error', 'always'],
+		'eol-last': ['error', 'always'],
+		semi: 'off',
+		'@typescript-eslint/semi': 'error',
+		'@typescript-eslint/consistent-type-assertions': 'off',
+		'@typescript-eslint/no-var-requires': 'off',
+		'@typescript-eslint/explicit-function-return-type': 'off',
+		'@typescript-eslint/no-explicit-any': 'off',
+		'@typescript-eslint/no-use-before-define': 'off'
 	}
 };

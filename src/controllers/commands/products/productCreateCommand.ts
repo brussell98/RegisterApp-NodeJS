@@ -31,9 +31,8 @@ export const execute = async (
 ): Promise<CommandResponse<Product>> => {
 	const validationResponse: CommandResponse<Product> =
 		validateSaveRequest(saveProductRequest);
-	if (validationResponse.status !== 200) {
+	if (validationResponse.status !== 200)
 		return Promise.reject(validationResponse);
-	}
 
 	const productToCreate: ProductModel = <ProductModel>{
 		count: saveProductRequest.count,
@@ -50,12 +49,11 @@ export const execute = async (
 				saveProductRequest.lookupCode,
 				createTransaction);
 		}).then((queriedProduct: (ProductModel | null)): Promise<ProductModel> => {
-			if (queriedProduct != null) {
+			if (queriedProduct != null)
 				return Promise.reject(<CommandResponse<Product>>{
 					status: 409,
 					message: Resources.getString(ResourceKey.PRODUCT_LOOKUP_CODE_CONFLICT)
 				});
-			}
 
 			return ProductModel.create(
 				productToCreate,
@@ -75,9 +73,8 @@ export const execute = async (
 				}
 			};
 		}).catch((error: any): Promise<CommandResponse<Product>> => {
-			if (createTransaction != null) {
+			if (createTransaction != null)
 				createTransaction.rollback();
-			}
 
 			return Promise.reject(<CommandResponse<Product>>{
 				status: error.status || 500,

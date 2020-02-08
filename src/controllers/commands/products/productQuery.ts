@@ -14,12 +14,11 @@ export const queryById = async (productId?: string): Promise<CommandResponse<Pro
 
 	return ProductRepository.queryById(<string>productId)
 		.then((queriedProduct: (ProductModel | null)): Promise<CommandResponse<Product>> => {
-			if (queriedProduct == null) {
+			if (queriedProduct == null)
 				return Promise.reject(<CommandResponse<Product>>{
 					status: 404,
 					message: Resources.getString(ResourceKey.PRODUCT_NOT_FOUND)
 				});
-			}
 
 			return Promise.resolve(<CommandResponse<Product>>{
 				status: 200,
@@ -39,12 +38,11 @@ export const queryByLookupCode = async (
 
 	return ProductRepository.queryByLookupCode(<string>productLookupCode)
 		.then((queriedProduct: (ProductModel | null)): Promise<CommandResponse<Product>> => {
-			if (queriedProduct == null) {
+			if (queriedProduct == null)
 				return Promise.reject(<CommandResponse<Product>>{
 					status: 404,
 					message: Resources.getString(ResourceKey.PRODUCT_NOT_FOUND)
 				});
-			}
 
 			return Promise.resolve(<CommandResponse<Product>>{
 				status: 200,
